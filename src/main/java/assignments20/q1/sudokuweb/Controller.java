@@ -7,6 +7,10 @@ import javax.inject.Named;
 @RequestScoped
 public class Controller {
 
+    Model model = new Board();
+
+    private String keyboard = "123,456,789";
+
     public String getKeyboard() {
         return keyboard;
     }
@@ -15,7 +19,8 @@ public class Controller {
         this.keyboard = keyboard;
     }
 
-    private String keyboard = "123,456,789";
+    public void checkSudoku(Sudoku sudoku) {
 
-
+        model.checkSudoku(sudoku);
+    }
 }

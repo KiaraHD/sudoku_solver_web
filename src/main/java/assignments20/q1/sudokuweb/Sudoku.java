@@ -6,7 +6,7 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class Sudoku {
-    private String sudokuField[][];
+    private String sudokuField[][] = new String[9][9];
 
     public String[][] getSudokuField() {
         return sudokuField;

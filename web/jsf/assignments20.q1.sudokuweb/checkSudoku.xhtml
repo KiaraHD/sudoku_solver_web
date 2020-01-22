@@ -12,13 +12,22 @@
     <h:form>
         <p:panel id="sudoku" header="Check sudoku" style="margin-bottom:20px">
 
-                    <p:keyboard value="#{sudoku.sudokuField[i][j]}" layout="custom" layoutTemplate="#{controller.keyboard}" maxlength="1"
+
+
+            <ui:repeat value="#{sudoku.sudokuField}" var="valueA" varStatus="i">
+                <ui:repeat value="#{sudoku.sudokuField}" var="valueB" varStatus="j">
+
+                    <p:keyboard value="#{sudoku.sudokuField[i.index][j.index]}" layout="custom"
+                                layoutTemplate="#{controller.keyboard}" maxlength="1"
                                 style="text-align: center ; width: 20px; height: 20px;"/>
 
-
+                </ui:repeat>
+                <br/>
+            </ui:repeat>
             <br></br>
 
 
+            <p:commandButton id="check" value="Check sudoku" action="#{controller.checkSudoku(sudoku)}" style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>
