@@ -16,6 +16,28 @@ public class Sudoku {
         this.sudokuField = sudokuField;
     }
 
+    public void fillSudoku() {
+
+        for (int i = 0; i < sudokuField.length; i++) {
+            for (int j = 0; j < sudokuField[i].length; j++) {
+
+                sudokuField[i][j] = "4";
+
+            }
+        }
+
+    }
 
 
+    public void clear() {
+
+        for (int i = 0; i < sudokuField.length; i++) {
+            for (int j = 0; j < sudokuField[i].length; j++) {
+
+                sudokuField[i][j] = " ";
+
+            }
+        }
+
+    }
 }

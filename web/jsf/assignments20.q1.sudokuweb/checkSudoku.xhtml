@@ -26,9 +26,17 @@
             </ui:repeat>
             <br></br>
 
+            <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
+
+            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'}"/>
+
+            <br></br>
+            <br></br>
+
 
             <p:commandButton id="check" value="Check sudoku" action="#{controller.checkSudoku(sudoku)}" style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
+            <p:commandButton id="clear" value="Clear field" action="#{sudoku.clear()}" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>
 </h:body>
