@@ -12,7 +12,7 @@
     <h:form>
 
         <p:panel id="sudoku" header="Play Sudoku" style="margin-bottom:20px">
-
+            <br/>
             <ui:repeat value="#{sudoku.sudokuField}" var="valueA" varStatus="i">
                 <ui:repeat value="#{sudoku.sudokuField}" var="valueB" varStatus="j">
 
@@ -25,8 +25,15 @@
             </ui:repeat>
 
             <br/>
+
+            <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
+            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'}"/>
+
+            <br/>
             <br/>
 
+            <p:commandButton id="check" value="Check Solution" action="#{controller.checkSudoku(sudoku)}" style="margin-right:10px;" ajax="false"/>
+            <p:commandButton id="default" value="Generate sudoku" action="#{sudoku.genrerateDefaultSudoku()}" style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>
