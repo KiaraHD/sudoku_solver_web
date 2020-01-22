@@ -5,7 +5,7 @@ public class Board implements Model {
     String boardValue[][] = new String[9][9];
 
     @Override
-    public Boolean checkSudoku(Sudoku sudoku) {
+    public boolean checkSudoku(Sudoku sudoku) {
 
         boardValue = sudoku.getSudokuField();
 
@@ -198,7 +198,6 @@ public class Board implements Model {
                     break;
                 default:
                     return false;
-
             }
         }
 
@@ -207,6 +206,99 @@ public class Board implements Model {
             return false;
         }
         return true;
+    }
+
+    public boolean containedInRow(int row, int number) {
+
+        for (int i = 0; i < 9; i++) {
+
+            if (boardValue[row][i].equals(Integer.toString(number))) {
+
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean containedInColumn(int col, int number) {
+
+        for (int i = 0; i < 9; i++) {
+
+            if (boardValue[i][col].equals(Integer.toString(number))) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containedInField(int row, int col, int number) {
+        row = row / 3 * 3;
+        col = col / 3 * 3;
+
+        for (int i = row; i < row + 3; i++) {
+            for (int j = col; j < col + 3; j++) {
+
+                if (boardValue[i][j].equals(Integer.toString(number))) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isValid(int row, int col, int number) {
+        if (containedInRow(row, number) || containedInColumn(col, number) || containedInField(row, col, number)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public boolean solve() {
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                if (boardValue[i][j].equals("")) {
+
+                    for (int number = 1; number <= 9; number++) {
+
+                        if (isValid(i, j, number)) {
+
+                            boardValue[i][j] = Integer.toString(number);
+
+                            if (solve()) {
+                                return true;
+                            } else {
+
+                                boardValue[i][j] = ("");
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Sudoku solveSudoku(Sudoku sudoku) {
+
+        boardValue = sudoku.getSudokuField();
+        solve();
+
+        sudoku.setSudokuField(boardValue);
+
+        return sudoku;
+    }
+
+
+}
+
+
 

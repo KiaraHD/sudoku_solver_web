@@ -2,6 +2,7 @@ package assignments20.q1.sudokuweb;
 
 public interface Model {
 
-    Boolean checkSudoku(Sudoku sudoku);
+    boolean checkSudoku(Sudoku sudoku);
 
+    Sudoku solveSudoku(Sudoku sudoku);
 }

@@ -9,7 +9,7 @@ public class Controller {
 
     Model model = new Board();
 
-Boolean isCorrect;
+    Boolean isCorrect;
     private String keyboard = "123,456,789";
 
     public Boolean getCorrect() {
@@ -30,6 +30,12 @@ Boolean isCorrect;
 
     public void checkSudoku(Sudoku sudoku) {
 
-      isCorrect = model.checkSudoku(sudoku);
+        isCorrect = model.checkSudoku(sudoku);
     }
+
+    public Sudoku solveSudoku(Sudoku sudoku){
+
+        return model.solveSudoku(sudoku);
+    }
+
 }
