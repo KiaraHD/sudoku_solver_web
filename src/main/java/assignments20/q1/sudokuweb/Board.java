@@ -1,8 +1,12 @@
 package assignments20.q1.sudokuweb;
 
+import libs.inout.In;
+
 public class Board implements Model {
 
     String boardValue[][] = new String[9][9];
+    boolean solvable;
+    final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames";
 
     @Override
     public boolean checkSudoku(Sudoku sudoku) {
@@ -290,14 +294,43 @@ public class Board implements Model {
     public Sudoku solveSudoku(Sudoku sudoku) {
 
         boardValue = sudoku.getSudokuField();
-        solve();
+        solvable = solve();
 
         sudoku.setSudokuField(boardValue);
 
         return sudoku;
     }
 
+    public boolean isSolvable(){
 
+        return solvable;
+    }
+
+    public void saveSudokuFromFile() {
+
+        //what the txd file should look like: 5,3,4,,7,8,,1,2,,7,2,1,9,5,3,4,,1,9,8,,4,,5,,7,8,,9,,6,1,4,,3,,2,6,,5,3,7,9,1,7,,3,9,2,,8,,6,9,6,1,,3,,2,8,4,,8,7,4,,9,6,,5,3,4,5,,8,,1,7,9,001,Game #000
+        //81 Zeichen field (durch komma gestrennt) -> 3 Zeichen ID  -> restliche Zeichen Name (9 Zeichen)
+
+        In.open(FILE_NAME);
+
+        String sudokuString = In.readLine();
+        String sudokuArray[] = sudokuString.split(",");
+
+        int count = 0;
+        for (int i = 0; i < boardValue.length ; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                boardValue[i][j] = sudokuArray[count];
+
+                count++;
+            }
+        }
+
+        String id = sudokuArray[81];
+        String name = sudokuArray[82];
+
+       In.close();
+    }
 }
 
 
