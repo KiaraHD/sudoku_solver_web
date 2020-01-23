@@ -33,16 +33,4 @@ public class Sudoku {
     public void setGameTitle(String gameTitle) {
         this.gameTitle = gameTitle;
     }
-
-    public void clear() {
-
-        for (int i = 0; i < sudokuField.length; i++) {
-            for (int j = 0; j < sudokuField[i].length; j++) {
-
-                sudokuField[i][j] = "";
-
-            }
-        }
-
-    }
 }

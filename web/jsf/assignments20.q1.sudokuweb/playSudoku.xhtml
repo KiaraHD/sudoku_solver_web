@@ -10,13 +10,13 @@
 </h:head>
 <h:body>
     <h:form>
-
         <p:panel id="sudoku" header="Play Sudoku" style="margin-bottom:20px">
+
             <br/>
             <ui:repeat value="#{sudoku.sudokuField}" var="valueA" varStatus="i">
                 <ui:repeat value="#{sudoku.sudokuField}" var="valueB" varStatus="j">
 
-                    <p:keyboard value="#{sudoku.sudokuField[i.index][j.index]}" layout="custom"
+                    <p:keyboard value="#{sudoku.sudokuField}" layout="custom"
                                 layoutTemplate="#{controller.keyboard}" maxlength="1"
                                 style="text-align: center ; width: 20px; height: 20px;"/>
 
@@ -25,20 +25,23 @@
             </ui:repeat>
 
             <br/>
-
             <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
             <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'}"/>
 
             <br/>
             <br/>
 
-            <p:selectOneMenu id="gameid" value="#{controller.gameid}"  style="width:180px" effect="fold">
+            <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold">
                 <f:selectItem itemLabel="select a game" itemValue=""/>
-                <f:selectItems value = "#{controller.generateList()}" var ="var" itemLabel ="#{var.gameTitle}" itemValue="#{var.gameID}"/>
+                <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
+                               itemValue="#{var.gameID}"/>
             </p:selectOneMenu>
 
-            <p:commandButton id="default" value="Generate sudoku" action="#{controller.setSudoku(sudoku, controller.gameid)}" style="margin-right:10px;" ajax="false"/>
-            <p:commandButton id="check" value="Check Solution" action="#{controller.checkSudoku(sudoku)}" style="margin-right:10px;" ajax="false"/>
+            <p:commandButton id="default" value="Generate sudoku"
+                             action="#{controller.setSudoku(sudoku, controller.gameid)}" style="margin-right:10px;"
+                             ajax="false"/>
+            <p:commandButton id="check" value="Check Solution" action="#{controller.checkSudoku(sudoku)}"
+                             style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>

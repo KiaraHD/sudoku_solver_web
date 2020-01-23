@@ -1,22 +1,25 @@
 package assignments20.q1.sudokuweb;
 
+import libs.inout.In;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Named
 @RequestScoped
 public class Controller {
 
-    ArrayList<Sudoku> sudokus = new ArrayList();
-
-    String gameid;
-
-    Model model = new Board();
-
-    Boolean isCorrect;
+    private Sudoku sudokuTemplate;
+    private List<Sudoku> sudokuCollection = new ArrayList();
+    private String gameid;
+    private Model model = new Board();
+    private Boolean isCorrect;
     private String keyboard = "123,456,789";
+
+    final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames";
 
     public Boolean getCorrect() {
         return isCorrect;
@@ -42,13 +45,14 @@ public class Controller {
         this.gameid = gameid;
     }
 
-    public ArrayList<Sudoku> getSudokus() {
-        return sudokus;
+    public  List<Sudoku> getSudokus() {
+        return sudokuCollection;
     }
 
     public void setSudokus(ArrayList<Sudoku> sudokus) {
-        this.sudokus = sudokus;
+        this.sudokuCollection = sudokus;
     }
+
 
     public void checkSudoku(Sudoku sudoku) {
 
@@ -60,70 +64,14 @@ public class Controller {
         return model.solveSudoku(sudoku);
     }
 
-    public ArrayList generateList() {
+    public List generateList() {
 
-        sudokus.clear();
+        sudokuCollection.clear();
 
-        String[][] game1 = new String[][]{
-                {"5", "3", "4", "", "7", "8", "", "1", "2"},
-                {"", "7", "2", "1", "9", "5", "3", "4", ""},
-                {"1", "9", "8", "", "4", "", "5", "", "7"},
-                {"8", "", "9", "", "6", "1", "4", "", "3"},
-                {"", "2", "6", "", "5", "3", "7", "9", "1"},
-                {"7", "", "3", "9", "2", "", "8", "", "6"},
-                {"9", "6", "1", "", "3", "", "2", "8", "4"},
-                {"", "8", "7", "4", "", "9", "6", "", "5"},
-                {"3", "4", "5", "", "8", "", "1", "7", "9"}
-        };
+        saveSudokuFromFile();
 
-        Sudoku tmp = new Sudoku();
-        tmp.setGameID("0");
-        tmp.setGameTitle("Game #000");
-        tmp.setSudokuField(game1);
-
-        sudokus.add(tmp);
-
-        String[][] game = new String[][]{
-                {"", "7", "", "", "", "4", "1", "3", "0"},
-                {"", "", "", "2", "", "7", "", "", "6"},
-                {"", "", "5", "", "1", "3", "", "2", ""},
-                {"", "", "1", "", "", "2", "", "", ""},
-                {"", "", "2", "1", "9", "", "", "5", "7"},
-                {"", "", "3", "", "4", "5", "8", "", "2"},
-                {"", "1", "", "3", "7", "8", "2", "6", ""},
-                {"3", "6", "7", "", "", "", "5", "8", ""},
-                {"8", "", "9", "", "", "1", "", "7", ""}
-        };
-
-        Sudoku tmp1 = new Sudoku();
-        tmp1.setGameID("1");
-        tmp1.setGameTitle("Game #001");
-        tmp1.setSudokuField(game);
-
-        sudokus.add(tmp1);
-
-        String[][] game2 = new String[][]{
-                {"", "", "7", "9", "", "2", "", "", ""},
-                {"", "", "", "", "5", "", "", "", "2"},
-                {"", "5", "", "", "4", "8", "3", "", "9"},
-                {"2", "9", "1", "", "6", "", "", "", "4"},
-                {"5", "", "3", "", "7", "", "9", "1", ""},
-                {"7", "6", "", "8", "", "", "2", "3", ""},
-                {"4", "", "", "5", "", "", "6", "", "7"},
-                {"8", "", "5", "6", "2", "", "", "9", "3"},
-                {"3", "2", "", "4", "9", "", "8", "5", ""}
-        };
-
-        Sudoku tmp2 = new Sudoku();
-        tmp2.setGameID("2");
-        tmp2.setGameTitle("Game #002");
-        tmp2.setSudokuField(game2);
-
-        sudokus.add(tmp2);
-
-        return sudokus;
+        return sudokuCollection;
     }
-
 
     public Sudoku setSudoku(Sudoku sudoku, String gameID) {
 
@@ -132,17 +80,52 @@ public class Controller {
         if (gameID.equals("")) {
 
             Random rand = new Random();
-            int randomNum = rand.nextInt(sudokus.size() + 1);
+            int randomNum = rand.nextInt(sudokuCollection.size() + 1);
 
-            tmp = sudokus.get(randomNum);
+            tmp = sudokuCollection.get(randomNum);
 
         } else {
 
-            tmp = sudokus.get(Integer.parseInt(gameID));
+            tmp = sudokuCollection.get(Integer.parseInt(gameID));
+        }
+
+        sudoku.setSudokuField(tmp.getSudokuField());
+        return sudoku;
+    }
+
+    public void saveSudokuFromFile() {
+
+        //what the txd file should look like: 5,3,4,,7,8,,1,2,,7,2,1,9,5,3,4,,1,9,8,,4,,5,,7,8,,9,,6,1,4,,3,,2,6,,5,3,7,9,1,7,,3,9,2,,8,,6,9,6,1,,3,,2,8,4,,8,7,4,,9,6,,5,3,4,5,,8,,1,7,9,001,Game #000
+        //81 Zeichen field (durch komma gestrennt) -> 3 Zeichen ID  -> restliche Zeichen Name (9 Zeichen)
+
+        In.open(FILE_NAME);
+
+        String sudokuString = In.readLine();
+        String sudokuArray[] = sudokuString.split(",");
+
+        Sudoku tmp = new Sudoku();
+        String[][] sudokuFieldTmp = new String[9][9];
+
+        while (In.done()) {
+
+            int count = 0;
+            for (int i = 0; i < tmp.getSudokuField().length; i++) {
+                for (int j = 0; j < tmp.getSudokuField()[i].length; j++) {
+
+                    sudokuFieldTmp[i][j] = sudokuArray[count];
+            count++;
+
+                }
+            }
+            tmp.setSudokuField(sudokuFieldTmp);
+            tmp.setGameTitle(sudokuArray[82]);
+            tmp.setGameID(sudokuArray[81]);
+            sudokuCollection.add(tmp);
 
         }
 
-            sudoku.setSudokuField(tmp.getSudokuField());
-        return sudoku;
+
+        In.close();
     }
+
 }

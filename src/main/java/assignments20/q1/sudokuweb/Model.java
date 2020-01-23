@@ -5,4 +5,6 @@ public interface Model {
     boolean checkSudoku(Sudoku sudoku);
 
     Sudoku solveSudoku(Sudoku sudoku);
+
+    void clear();
 }
