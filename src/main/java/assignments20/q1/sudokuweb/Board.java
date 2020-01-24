@@ -5,10 +5,20 @@ public class Board implements Model {
     String boardValue[][] = new String[9][9];
     boolean solvable;
 
-    @Override
-    public boolean checkSudoku(Sudoku sudoku) {
+    public String[][] getBoardValue() {
+        return boardValue;
+    }
 
-        boardValue = sudoku.getSudokuField();
+    public void setBoardValue(String[][] boardValue) {
+        this.boardValue = boardValue;
+    }
+
+    public void setSolvable(boolean solvable) {
+        this.solvable = solvable;
+    }
+
+    @Override
+    public boolean checkSudoku() {
 
         for (int row = 0; row < 9; row++) {
 
@@ -288,14 +298,12 @@ public class Board implements Model {
     }
 
     @Override
-    public Sudoku solveSudoku(Sudoku sudoku) {
+    public boolean solveSudoku() {
 
-        boardValue = sudoku.getSudokuField();
         solvable = solve();
 
-        sudoku.setSudokuField(boardValue);
 
-        return sudoku;
+        return solvable;
     }
 
     public boolean isSolvable() {

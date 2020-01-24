@@ -21,6 +21,14 @@ public class Controller {
 
     final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames";
 
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
     public Boolean getCorrect() {
         return isCorrect;
     }
@@ -45,7 +53,7 @@ public class Controller {
         this.gameid = gameid;
     }
 
-    public  List<Sudoku> getSudokus() {
+    public List<Sudoku> getSudokus() {
         return sudokuCollection;
     }
 
@@ -54,14 +62,14 @@ public class Controller {
     }
 
 
-    public void checkSudoku(Sudoku sudoku) {
+    public void checkSudoku() {
 
-        isCorrect = model.checkSudoku(sudoku);
+        isCorrect = model.checkSudoku();
     }
 
-    public Sudoku solveSudoku(Sudoku sudoku) {
+    public void solveSudoku() {
 
-        return model.solveSudoku(sudoku);
+        isCorrect = model.solveSudoku();
     }
 
     public List generateList() {
@@ -100,20 +108,20 @@ public class Controller {
 
         In.open(FILE_NAME);
 
-        String sudokuString = In.readLine();
-        String sudokuArray[] = sudokuString.split(",");
+        while (!In.done()) {
+            String sudokuString = In.readLine();
+            String sudokuArray[] = sudokuString.split(",");
 
-        Sudoku tmp = new Sudoku();
-        String[][] sudokuFieldTmp = new String[9][9];
+            Sudoku tmp = new Sudoku();
+            String[][] sudokuFieldTmp = new String[9][9];
 
-        while (In.done()) {
 
             int count = 0;
             for (int i = 0; i < tmp.getSudokuField().length; i++) {
                 for (int j = 0; j < tmp.getSudokuField()[i].length; j++) {
 
                     sudokuFieldTmp[i][j] = sudokuArray[count];
-            count++;
+                    count++;
 
                 }
             }
@@ -124,8 +132,12 @@ public class Controller {
 
         }
 
-
         In.close();
+    }
+
+    public void clearField(){
+
+        model.clear();
     }
 
 }

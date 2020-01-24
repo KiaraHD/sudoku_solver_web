@@ -15,10 +15,10 @@
         <p:panel id="sudoku" header="Solve sudoku" style="margin-bottom:20px">
 
             <br/>
-            <ui:repeat value="#{sudoku.sudokuField}" var="valueA" varStatus="i">
-                <ui:repeat value="#{sudoku.sudokuField}" var="valueB" varStatus="j">
+            <ui:repeat value="#{controller.model.boardValue}" var="valueA" varStatus="i">
+                <ui:repeat value="#{controller.model.boardValue}" var="valueB" varStatus="j">
 
-                    <p:keyboard value="#{sudoku.sudokuField[i.index][j.index]}" layout="custom"
+                    <p:keyboard value="#{controller.model.boardValue[i.index][j.index]}" layout="custom"
                                 layoutTemplate="#{controller.keyboard}" maxlength="1"
                                 style="text-align: center ; width: 20px; height: 20px;"/>
 
@@ -27,13 +27,17 @@
             </ui:repeat>
 
             <br/>
+            <p:outputLabel value="the sudoku is solvable" rendered="#{controller.correct eq 'true'}"/>
+            <p:outputLabel value="the sudoku is not solvable" rendered="#{controller.correct eq 'false'}"/>
+
+            <br/>
             <br/>
 
 
-            <p:commandButton id="solve" value="Solve the sudoku" action="#{controller.solveSudoku(sudoku)}"
+            <p:commandButton id="solve" value="Solve the sudoku" action="#{controller.solveSudoku()}"
                              style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
-            <p:commandButton id="clear" value="Clear field" action="#{sudoku.clear()}" style="margin-right:10px;"
+            <p:commandButton id="clear" value="Clear field" action="#{controller.clearField()}" style="margin-right:10px;"
                              ajax="false"/>
 
         </p:panel>

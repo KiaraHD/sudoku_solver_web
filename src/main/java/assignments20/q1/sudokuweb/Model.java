@@ -2,9 +2,13 @@ package assignments20.q1.sudokuweb;
 
 public interface Model {
 
-    boolean checkSudoku(Sudoku sudoku);
+    boolean checkSudoku();
 
-    Sudoku solveSudoku(Sudoku sudoku);
+   boolean solveSudoku();
 
     void clear();
+
+    String[][] getBoardValue();
+
+   void setBoardValue(String[][] boardValue);
 }
