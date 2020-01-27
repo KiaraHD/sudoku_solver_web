@@ -12,7 +12,6 @@ import java.util.Random;
 @RequestScoped
 public class Controller {
 
-    private Sudoku sudokuTemplate;
     private List<Sudoku> sudokuCollection = new ArrayList();
     private String gameid;
     private Model model = new Board();
@@ -53,15 +52,6 @@ public class Controller {
         this.gameid = gameid;
     }
 
-    public List<Sudoku> getSudokus() {
-        return sudokuCollection;
-    }
-
-    public void setSudokus(ArrayList<Sudoku> sudokus) {
-        this.sudokuCollection = sudokus;
-    }
-
-
     public void checkSudoku() {
 
         isCorrect = model.checkSudoku();
@@ -81,24 +71,25 @@ public class Controller {
         return sudokuCollection;
     }
 
-    public Sudoku setSudoku(Sudoku sudoku, String gameID) {
+    public void setSudoku() {
 
         Sudoku tmp;
 
-        if (gameID.equals("")) {
+        if (gameid.equals("random")) {
+
 
             Random rand = new Random();
-            int randomNum = rand.nextInt(sudokuCollection.size() + 1);
+            int randomNum = rand.nextInt(sudokuCollection.size());
 
             tmp = sudokuCollection.get(randomNum);
 
         } else {
 
-            tmp = sudokuCollection.get(Integer.parseInt(gameID));
+            System.out.println(sudokuCollection.size());
+            tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
-        sudoku.setSudokuField(tmp.getSudokuField());
-        return sudoku;
+        model.setBoardValue(tmp.getSudokuField());
     }
 
     public void saveSudokuFromFile() {
@@ -108,7 +99,10 @@ public class Controller {
 
         In.open(FILE_NAME);
 
-        while (!In.done()) {
+
+        while (In.done() && In.peek() != In.eof) {
+
+
             String sudokuString = In.readLine();
             String sudokuArray[] = sudokuString.split(",");
 
@@ -121,6 +115,8 @@ public class Controller {
                 for (int j = 0; j < tmp.getSudokuField()[i].length; j++) {
 
                     sudokuFieldTmp[i][j] = sudokuArray[count];
+
+
                     count++;
 
                 }
@@ -135,7 +131,7 @@ public class Controller {
         In.close();
     }
 
-    public void clearField(){
+    public void clearField() {
 
         model.clear();
     }

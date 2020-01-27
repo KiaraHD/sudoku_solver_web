@@ -32,13 +32,13 @@
             <br/>
 
             <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold">
-                <f:selectItem itemLabel="select a game" itemValue=""/>
+                <f:selectItem itemLabel="select a game" itemValue="random"/>
                 <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
                                itemValue="#{var.gameID}"/>
             </p:selectOneMenu>
 
             <p:commandButton id="default" value="Generate sudoku"
-                             action="#{controller.setSudoku(controller.model.boardValue, controller.gameid)}" style="margin-right:10px;"
+                             action="#{controller.setSudoku()}" style="margin-right:10px;"
                              ajax="false"/>
             <p:commandButton id="check" value="Check Solution" action="#{controller.checkSudoku()}"
                              style="margin-right:10px;" ajax="false"/>
