@@ -59,7 +59,6 @@ public class SudokuTest {
 
     }
 
-
     @Test
     public void solveEqualsTrue() {
 
@@ -145,7 +144,6 @@ public class SudokuTest {
 
     @Test
     public void readField() {
-
 
         Controller controller = new Controller();
         controller.saveSudokuFromFile();

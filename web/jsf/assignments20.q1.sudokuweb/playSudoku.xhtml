@@ -25,19 +25,23 @@
             </ui:repeat>
 
             <br/>
-            <p:outputLabel value="the sudoku is empty, please insert some numbers" rendered="#{controller.model.fieldIsEmpty eq 'true'}"/>
+            <p:outputLabel value="the sudoku is empty, please insert some numbers" rendered="#{controller.model.fieldIsEmpty eq 'true' }"/>
+            <p:outputLabel value="the sudoku is not complete, please enter the remeaning numbers" rendered="#{controller.model.fieldIsFilled eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>
             <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
-            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false'}"/>
+            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false' and controller.model.fieldIsFilled eq 'true'}"/>
 
             <br/>
             <br/>
 
             <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold">
-                <f:selectItem itemLabel="Select a game" itemValue=""/>
+                <f:selectItem itemLabel="Select a game" itemValue="" noSelectionOption="true"/>
                 <f:selectItem itemLabel="Random game" itemValue="random"/>
                 <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
                                itemValue="#{var.gameID}"/>
             </p:selectOneMenu>
+
+            <br/>
+            <br/>
 
             <p:commandButton id="default" value="Generate sudoku"
                              action="#{controller.setSudoku()}" style="margin-right:10px;"

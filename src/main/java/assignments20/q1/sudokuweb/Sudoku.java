@@ -1,9 +1,13 @@
 package assignments20.q1.sudokuweb;
 
 public class Sudoku {
-    private String sudokuField[][] = new String[9][9];
+    private String sudokuField[][];
     private String gameID;
     private String gameTitle;
+
+    public Sudoku() {
+        sudokuField = new String[9][9];
+    }
 
     public String[][] getSudokuField() {
         return sudokuField;

@@ -12,14 +12,22 @@ import java.util.Random;
 @RequestScoped
 public class Controller {
 
-    private List<Sudoku> sudokuCollection = new ArrayList();
+    private List<Sudoku> sudokuCollection;
     private String gameid;
     private String gameTitle;
-    private Board model = new Board();
+    private Board model;
     private Boolean isCorrect;
-    private String keyboard = "123,456,789";
+    private String keyboard;
 
     final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
+
+    public Controller() {
+
+        sudokuCollection = new ArrayList();
+        model = new Board();
+        keyboard = "123,456,789";
+
+    }
 
     public Board getModel() {
         return model;
@@ -92,6 +100,10 @@ public class Controller {
 
         Sudoku tmp;
 
+        if (gameid.equals("")){
+            return;
+        }
+
         if (gameid.equals("random")) {
 
 
@@ -106,7 +118,7 @@ public class Controller {
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
-        gameTitle = tmp.getGameTitle();
+        gameTitle = " - " + tmp.getGameTitle();
         model.setBoardValue(tmp.getSudokuField());
     }
 

@@ -5,6 +5,17 @@ public class Board {
     boolean solvable;
     boolean fieldIsEmpty = false;
 
+    boolean fieldIsFilled = true;
+
+
+    public boolean isFieldIsFilled() {
+        return fieldIsFilled;
+    }
+
+    public void setFieldIsFilled(boolean fieldIsFilled) {
+        this.fieldIsFilled = fieldIsFilled;
+    }
+
     public void setFieldIsEmpty(boolean fieldIsEmpty) {
         this.fieldIsEmpty = fieldIsEmpty;
     }
@@ -28,8 +39,9 @@ public class Board {
     public boolean checkSudoku() {
 
         fieldIsEmpty = IsEmpty();
+        fieldIsFilled = fieldIsComplete();
 
-        if (fieldIsEmpty){
+        if (fieldIsEmpty || !fieldIsFilled) {
 
             return false;
         }
@@ -315,18 +327,17 @@ public class Board {
 
     public boolean solveSudoku() {
 
-      fieldIsEmpty = IsEmpty();
+        fieldIsEmpty = IsEmpty();
 
-      if(fieldIsEmpty){
-          return  false;
-      }
+        if (fieldIsEmpty) {
+            return false;
+        }
 
         solvable = solve();
 
 
         return solvable;
     }
-
 
 
     public void clear() {
@@ -353,6 +364,19 @@ public class Board {
         return true;
     }
 
+    public boolean fieldIsComplete() {
+
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                if (boardValue[i][j].equals("")) {
+
+                    return false;
+                }
+            }
+        }
+ return true;
+    }
 
     @Override
     protected Object clone() {
