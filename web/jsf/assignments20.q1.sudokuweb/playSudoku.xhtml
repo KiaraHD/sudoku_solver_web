@@ -25,16 +25,16 @@
             </ui:repeat>
 
             <br/>
-            <p:outputLabel value="the sudoku is empty, please insert some numbers" rendered="#{controller.model.fieldIsEmpty eq 'true' }"/>
-            <p:outputLabel value="the sudoku is not complete, please enter the remeaning numbers" rendered="#{controller.model.fieldIsFilled eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>
-            <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
-            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false' and controller.model.fieldIsFilled eq 'true'}"/>
+            <p:outputLabel value="The sudoku is empty, please insert some numbers." rendered="#{controller.model.fieldIsEmpty eq 'true' }"/>
+            <p:outputLabel value="The sudoku is not complete, please enter the remeaning numbers." rendered="#{controller.model.fieldIsFilled eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>
+            <p:outputLabel value="The sudoku is solved correct." rendered="#{controller.correct eq 'true'}"/>
+            <p:outputLabel value="The sudoku is solved wrong." rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false' and controller.model.fieldIsFilled eq 'true'}"/>
 
             <br/>
             <br/>
 
+            <h4>Select a game</h4>
             <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold">
-                <f:selectItem itemLabel="Select a game" itemValue="" noSelectionOption="true"/>
                 <f:selectItem itemLabel="Random game" itemValue="random"/>
                 <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
                                itemValue="#{var.gameID}"/>
