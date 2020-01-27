@@ -25,9 +25,11 @@
             </ui:repeat>
             <br></br>
 
+            <p:outputLabel value="the sudoku is empty, please fill the field" rendered="#{controller.model.fieldIsEmpty eq 'true'}"/>
+
             <p:outputLabel value="the sudoku is solved correct" rendered="#{controller.correct eq 'true'}"/>
 
-            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false'}"/>
+            <p:outputLabel value="the sudoku is solved wrong" rendered="#{controller.correct eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>
 
             <br></br>
             <br></br>

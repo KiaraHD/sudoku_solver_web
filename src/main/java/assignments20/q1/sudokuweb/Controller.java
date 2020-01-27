@@ -14,22 +14,31 @@ public class Controller {
 
     private List<Sudoku> sudokuCollection = new ArrayList();
     private String gameid;
-    private Model model = new Board();
+    private String gameTitle;
+    private Board model = new Board();
     private Boolean isCorrect;
     private String keyboard = "123,456,789";
 
-    final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames";
+    final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
 
-    public Model getModel() {
+    public Board getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(Board model) {
         this.model = model;
     }
 
     public Boolean getCorrect() {
         return isCorrect;
+    }
+
+    public String getGameTitle() {
+        return gameTitle;
+    }
+
+    public void setGameTitle(String gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     public void setCorrect(Boolean correct) {
@@ -62,6 +71,14 @@ public class Controller {
         isCorrect = model.solveSudoku();
     }
 
+    public List<Sudoku> getSudokuCollection() {
+        return sudokuCollection;
+    }
+
+    public void setSudokuCollection(List<Sudoku> sudokuCollection) {
+        this.sudokuCollection = sudokuCollection;
+    }
+
     public List generateList() {
 
         sudokuCollection.clear();
@@ -89,6 +106,7 @@ public class Controller {
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
+        gameTitle = tmp.getGameTitle();
         model.setBoardValue(tmp.getSudokuField());
     }
 

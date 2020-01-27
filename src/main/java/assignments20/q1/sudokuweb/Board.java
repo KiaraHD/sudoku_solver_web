@@ -1,9 +1,17 @@
 package assignments20.q1.sudokuweb;
 
-public class Board implements Model {
-
+public class Board {
     String boardValue[][] = new String[9][9];
     boolean solvable;
+    boolean fieldIsEmpty = false;
+
+    public void setFieldIsEmpty(boolean fieldIsEmpty) {
+        this.fieldIsEmpty = fieldIsEmpty;
+    }
+
+    public boolean isFieldIsEmpty() {
+        return fieldIsEmpty;
+    }
 
     public String[][] getBoardValue() {
         return boardValue;
@@ -17,8 +25,14 @@ public class Board implements Model {
         this.solvable = solvable;
     }
 
-    @Override
     public boolean checkSudoku() {
+
+        fieldIsEmpty = IsEmpty();
+
+        if (fieldIsEmpty){
+
+            return false;
+        }
 
         for (int row = 0; row < 9; row++) {
 
@@ -45,6 +59,7 @@ public class Board implements Model {
 
         return true;
     }
+
 
     private String[] readRow(int numberOfRow) {
 
@@ -297,8 +312,14 @@ public class Board implements Model {
         return true;
     }
 
-    @Override
+
     public boolean solveSudoku() {
+
+      fieldIsEmpty = IsEmpty();
+
+      if(fieldIsEmpty){
+          return  false;
+      }
 
         solvable = solve();
 
@@ -306,10 +327,7 @@ public class Board implements Model {
         return solvable;
     }
 
-    public boolean isSolvable() {
 
-        return solvable;
-    }
 
     public void clear() {
 
@@ -321,6 +339,51 @@ public class Board implements Model {
         }
     }
 
+    public boolean IsEmpty() {
+
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                if (!boardValue[i][j].equals("")) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    @Override
+    protected Object clone() {
+
+        Board clone = new Board();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                clone.getBoardValue()[i][j] = boardValue[i][j];
+            }
+        }
+        return clone;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        Board other = (Board) obj;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                if (!(boardValue[i][j].equals(other.getBoardValue()[i][j]))) {
+
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
 
