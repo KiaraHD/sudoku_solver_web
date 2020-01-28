@@ -2,25 +2,26 @@ package assignments20.q1.sudokuweb;
 
 import libs.inout.In;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Named
-@RequestScoped
-public class Controller {
+@SessionScoped
+public class Controller implements Serializable {
 
+    static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
     private List<Sudoku> sudokuCollection;
     private Sudoku sudoku;
     private String gameid;
     private String gameTitle;
     private Board model;
     private Boolean isCorrect;
+    private boolean gameChosen;
     private String keyboard;
-
-    static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
 
 
     public Controller() {
@@ -28,12 +29,21 @@ public class Controller {
         sudokuCollection = new ArrayList();
         model = new Board();
         keyboard = "123,456,789";
+        gameChosen = false;
 
 //        File file = new File("main/java/assignments20/q1/sudokuweb/SudokuGames.csv");
 //        String path = file.getAbsolutePath();
 //        System.out.println(path);
 //        FILE_NAME = path;
 
+    }
+
+    public boolean isGameChosen() {
+        return gameChosen;
+    }
+
+    public void setGameChosen(boolean gameChosen) {
+        this.gameChosen = gameChosen;
     }
 
     public Sudoku getSudoku() {
@@ -56,16 +66,16 @@ public class Controller {
         return isCorrect;
     }
 
+    public void setCorrect(Boolean correct) {
+        isCorrect = correct;
+    }
+
     public String getGameTitle() {
         return gameTitle;
     }
 
     public void setGameTitle(String gameTitle) {
         this.gameTitle = gameTitle;
-    }
-
-    public void setCorrect(Boolean correct) {
-        isCorrect = correct;
     }
 
     public String getKeyboard() {
@@ -113,6 +123,7 @@ public class Controller {
 
     public void setSudokuField() {
 
+        gameChosen = true;
         Sudoku tmp;
 
         if (gameid.equals("")) {
@@ -176,5 +187,10 @@ public class Controller {
     public void clearField() {
 
         model.clear();
+    }
+
+    public void resetGameChoose() {
+
+        gameChosen = false;
     }
 }

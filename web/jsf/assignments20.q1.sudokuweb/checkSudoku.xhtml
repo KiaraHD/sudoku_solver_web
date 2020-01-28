@@ -16,10 +16,10 @@
             <ui:repeat value="#{controller.model.boardValue}" var="valueA" varStatus="i">
                 <ui:repeat value="#{controller.model.boardValue}" var="valueB" varStatus="j">
 
-                    <p:keyboard value="#{controller.model.boardValue[i.index][j.index]}" layout="custom"
+                    <p:keyboard id="field" value="#{controller.model.boardValue[i.index][j.index]}" layout="custom"
                                 layoutTemplate="#{controller.keyboard}" maxlength="1"
                                 style="text-align: center ; width: 20px; height: 20px;"/>
-
+                    <p:keyFilter for="field" regEx="/[1-9]/i"/>
                 </ui:repeat>
                 <br/>
             </ui:repeat>

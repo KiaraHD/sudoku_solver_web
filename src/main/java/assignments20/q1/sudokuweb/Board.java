@@ -1,12 +1,26 @@
 package assignments20.q1.sudokuweb;
 
 public class Board {
-    String boardValue[][] = new String[9][9];
+    String boardValue[][];
     boolean solvable;
-    boolean fieldIsEmpty = false;
+    boolean fieldIsEmpty;
+    boolean fieldIsFilled;
 
-    boolean fieldIsFilled = true;
 
+    public Board() {
+
+        boardValue = new String[9][9];
+        fieldIsEmpty = false;
+        fieldIsFilled = true;
+
+
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                boardValue[i][j] = new String();
+            }
+        }
+    }
 
     public boolean isFieldIsFilled() {
         return fieldIsFilled;
@@ -16,12 +30,12 @@ public class Board {
         this.fieldIsFilled = fieldIsFilled;
     }
 
-    public void setFieldIsEmpty(boolean fieldIsEmpty) {
-        this.fieldIsEmpty = fieldIsEmpty;
-    }
-
     public boolean isFieldIsEmpty() {
         return fieldIsEmpty;
+    }
+
+    public void setFieldIsEmpty(boolean fieldIsEmpty) {
+        this.fieldIsEmpty = fieldIsEmpty;
     }
 
     public String[][] getBoardValue() {
@@ -355,8 +369,6 @@ public class Board {
         for (int i = 0; i < boardValue.length; i++) {
             for (int j = 0; j < boardValue[i].length; j++) {
 
-                System.out.println(boardValue[i][j]);
-
                 if (!boardValue[i][j].equals("")) {
                     return false;
                 }
@@ -377,7 +389,7 @@ public class Board {
                 }
             }
         }
- return true;
+        return true;
     }
 
     @Override
