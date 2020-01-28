@@ -18,7 +18,7 @@
 
                     <p:keyboard value="#{controller.model.boardValue[i.index][j.index]}" layout="custom"
                                 layoutTemplate="#{controller.keyboard}" maxlength="1"
-                                style="text-align: center ; width: 20px; height: 20px;"/>
+                                style="text-align: center ; width: 20px; height: 20px" readonly="#{controller.model.boardValue[i.index][j.index] != ''}" />
 
                 </ui:repeat>
                 <br/>
@@ -31,9 +31,8 @@
             <p:outputLabel value="The sudoku is solved wrong." rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false' and controller.model.fieldIsFilled eq 'true'}"/>
 
             <br/>
-            <br/>
 
-            <h4>Select a game</h4>
+            <p:outputLabel value="Choose a game   "/>
             <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold">
                 <f:selectItem itemLabel="Random game" itemValue="random"/>
                 <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"

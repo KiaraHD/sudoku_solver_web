@@ -4,6 +4,8 @@ import libs.inout.In;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,13 +21,18 @@ public class Controller {
     private Boolean isCorrect;
     private String keyboard;
 
-    final static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
+    static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
 
     public Controller() {
 
         sudokuCollection = new ArrayList();
         model = new Board();
         keyboard = "123,456,789";
+
+//        File file = new File("main/java/assignments20/q1/sudokuweb/SudokuGames.csv");
+//        String path = file.getAbsolutePath();
+//        System.out.println(path);
+//        FILE_NAME = path;
 
     }
 
@@ -100,7 +107,7 @@ public class Controller {
 
         Sudoku tmp;
 
-        if (gameid.equals("")){
+        if (gameid.equals("")) {
             return;
         }
 
@@ -114,7 +121,6 @@ public class Controller {
 
         } else {
 
-            System.out.println(sudokuCollection.size());
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
@@ -129,9 +135,7 @@ public class Controller {
 
         In.open(FILE_NAME);
 
-
         while (In.done() && In.peek() != In.eof) {
-
 
             String sudokuString = In.readLine();
             String sudokuArray[] = sudokuString.split(",");
@@ -145,7 +149,6 @@ public class Controller {
                 for (int j = 0; j < tmp.getSudokuField()[i].length; j++) {
 
                     sudokuFieldTmp[i][j] = sudokuArray[count];
-
 
                     count++;
 
@@ -165,5 +168,4 @@ public class Controller {
 
         model.clear();
     }
-
 }
