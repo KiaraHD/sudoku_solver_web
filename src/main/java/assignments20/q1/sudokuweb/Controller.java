@@ -4,8 +4,6 @@ import libs.inout.In;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +13,7 @@ import java.util.Random;
 public class Controller {
 
     private List<Sudoku> sudokuCollection;
+    private Sudoku sudoku;
     private String gameid;
     private String gameTitle;
     private Board model;
@@ -22,6 +21,7 @@ public class Controller {
     private String keyboard;
 
     static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
+
 
     public Controller() {
 
@@ -34,6 +34,14 @@ public class Controller {
 //        System.out.println(path);
 //        FILE_NAME = path;
 
+    }
+
+    public Sudoku getSudoku() {
+        return sudoku;
+    }
+
+    public void setSudoku(Sudoku sudoku) {
+        this.sudoku = sudoku;
     }
 
     public Board getModel() {
@@ -103,7 +111,7 @@ public class Controller {
         return sudokuCollection;
     }
 
-    public void setSudoku() {
+    public void setSudokuField() {
 
         Sudoku tmp;
 
@@ -124,6 +132,7 @@ public class Controller {
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
+        sudoku = tmp;
         gameTitle = " - " + tmp.getGameTitle();
         model.setBoardValue(tmp.getSudokuField());
     }

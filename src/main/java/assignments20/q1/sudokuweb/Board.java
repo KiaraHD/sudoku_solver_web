@@ -355,6 +355,8 @@ public class Board {
         for (int i = 0; i < boardValue.length; i++) {
             for (int j = 0; j < boardValue[i].length; j++) {
 
+                System.out.println(boardValue[i][j]);
+
                 if (!boardValue[i][j].equals("")) {
                     return false;
                 }
