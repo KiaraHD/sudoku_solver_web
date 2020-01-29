@@ -2,6 +2,7 @@ package assignments20.q1.sudokuweb;
 
 public class Board {
     String boardValue[][];
+    String solvedField[][];
     boolean solvable;
     boolean fieldIsEmpty;
     boolean fieldIsFilled;
@@ -10,6 +11,7 @@ public class Board {
     public Board() {
 
         boardValue = new String[9][9];
+        solvedField = new String[9][9];
         fieldIsEmpty = false;
         fieldIsFilled = true;
 
@@ -20,6 +22,14 @@ public class Board {
                 boardValue[i][j] = new String();
             }
         }
+
+        for (int i = 0; i < solvedField.length; i++) {
+            for (int j = 0; j < solvedField[i].length; j++) {
+
+                solvedField[i][j] = new String();
+            }
+        }
+
     }
 
     public boolean isFieldIsFilled() {
@@ -264,7 +274,7 @@ public class Board {
 
         for (int i = 0; i < 9; i++) {
 
-            if (boardValue[row][i].equals(Integer.toString(number))) {
+            if (solvedField[row][i].equals(Integer.toString(number))) {
 
                 return true;
             }
@@ -276,7 +286,7 @@ public class Board {
 
         for (int i = 0; i < 9; i++) {
 
-            if (boardValue[i][col].equals(Integer.toString(number))) {
+            if (solvedField[i][col].equals(Integer.toString(number))) {
 
                 return true;
             }
@@ -291,7 +301,7 @@ public class Board {
         for (int i = row; i < row + 3; i++) {
             for (int j = col; j < col + 3; j++) {
 
-                if (boardValue[i][j].equals(Integer.toString(number))) {
+                if (solvedField[i][j].equals(Integer.toString(number))) {
 
                     return true;
                 }
@@ -309,37 +319,15 @@ public class Board {
     }
 
 
-    public boolean solve() {
+    public boolean solveSudoku() {
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
 
-                if (boardValue[i][j].equals("")) {
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
 
-                    for (int number = 1; number <= 9; number++) {
-
-                        if (isValid(i, j, number)) {
-
-                            boardValue[i][j] = Integer.toString(number);
-
-                            if (solve()) {
-                                return true;
-                            } else {
-
-                                boardValue[i][j] = ("");
-                            }
-                        }
-                    }
-                    return false;
-                }
+                solvedField[i][j] = boardValue[i][j];
             }
         }
-
-        return true;
-    }
-
-
-    public boolean solveSudoku() {
 
         fieldIsEmpty = IsEmpty();
 
@@ -349,6 +337,7 @@ public class Board {
 
         solvable = solve();
 
+        boardValue = solvedField;
 
         return solvable;
     }
@@ -423,6 +412,72 @@ public class Board {
         return true;
     }
 
+
+    public boolean solve() {
+
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                if (solvedField[i][j].equals("")) {
+
+                    for (int number = 1; number <= 9; number++) {
+
+                        if (isValid(i, j, number)) {
+
+                            solvedField[i][j] = Integer.toString(number);
+
+                            if (solve()) {
+                                return true;
+                            } else {
+
+                                solvedField[i][j] = ("");
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean hint() {
+
+
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                solvedField[i][j] = boardValue[i][j];
+            }
+        }
+
+        solve();
+
+        int indexI = 0;
+        int indexJ = 0;
+        boolean firstEmpty = true;
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                if (boardValue[i][j].equals("") && firstEmpty == true) {
+                    indexI = i;
+                    indexJ = j;
+                    firstEmpty = false;
+                }
+            }
+        }
+
+        if (firstEmpty == false) {
+
+            boardValue[indexI][indexJ] = solvedField[indexI][indexJ];
+
+            return true;
+        }
+
+        return false;
+    }
 }
 
 

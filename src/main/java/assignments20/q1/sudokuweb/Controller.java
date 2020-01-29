@@ -2,7 +2,7 @@ package assignments20.q1.sudokuweb;
 
 import libs.inout.In;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class Controller implements Serializable {
 
     static String FILE_NAME = "/home/kiara/work/itl/src/main/java/assignments20/q1/sudokuweb/SudokuGames.csv";
@@ -143,9 +143,9 @@ public class Controller implements Serializable {
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
-        sudoku = tmp;
         gameTitle = " - " + tmp.getGameTitle();
         model.setBoardValue(tmp.getSudokuField());
+        sudoku = tmp;
     }
 
     public void saveSudokuFromFile() {
@@ -192,5 +192,21 @@ public class Controller implements Serializable {
     public void resetGameChoose() {
 
         gameChosen = false;
+    }
+
+    public boolean isReadOnly(int i, int j) {
+
+        if (sudoku.getSudokuField()[i][j].equals("")) {
+
+            return false;
+
+        }
+
+        return true;
+    }
+
+    public void getHint() {
+
+        model.hint();
     }
 }
