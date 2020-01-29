@@ -30,6 +30,7 @@ public class SudokuTest {
         };
 
         unsolved.setBoardValue(unsolvedField);
+        unsolved.setSolvedField(unsolvedField);
 
         String[][] unsolvedNotSolvableField = new String[][]{
                 {"5", "3", "6", "", "5", "8", "", "1", "2"},
@@ -44,6 +45,7 @@ public class SudokuTest {
         };
 
         unsolvedNotSolvable.setBoardValue(unsolvedNotSolvableField);
+        unsolvedNotSolvable.setSolvedField(unsolvedNotSolvableField);
 
         String[][] solvedField = new String[][]{
                 {"5", "3", "4", "6", "7", "8", "9", "1", "2"},
@@ -57,6 +59,7 @@ public class SudokuTest {
                 {"3", "4", "5", "2", "8", "6", "1", "7", "9"}
         };
         solved.setBoardValue(solvedField);
+        solved.setSolvedField(solvedField);
 
     }
 

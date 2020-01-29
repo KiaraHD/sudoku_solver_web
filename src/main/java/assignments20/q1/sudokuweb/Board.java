@@ -8,12 +8,22 @@ public class Board {
     boolean fieldIsFilled;
 
 
+    public String[][] getSolvedField() {
+        return solvedField;
+    }
+
+    public void setSolvedField(String[][] solvedField) {
+        this.solvedField = solvedField;
+    }
+
     public Board() {
 
         boardValue = new String[9][9];
         solvedField = new String[9][9];
         fieldIsEmpty = false;
         fieldIsFilled = true;
+
+
 
 
         for (int i = 0; i < boardValue.length; i++) {
