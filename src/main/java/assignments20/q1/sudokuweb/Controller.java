@@ -23,6 +23,7 @@ public class Controller implements Serializable {
     private Boolean isCorrect;
     private boolean gameChosen;
     private String keyboard;
+    private int difficulty;
 
 
     public Controller() {
@@ -31,12 +32,21 @@ public class Controller implements Serializable {
         model = new Board();
         keyboard = "123,456,789";
         gameChosen = false;
+        difficulty = 1;
 
 //        File file = new File("main/java/assignments20/q1/sudokuweb/SudokuGames.csv");
 //        String path = file.getAbsolutePath();
 //        System.out.println(path);
 //        FILE_NAME = path;
 
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public boolean isGameChosen() {
@@ -147,6 +157,8 @@ public class Controller implements Serializable {
             tmp = sudokuCollection.get(Integer.parseInt(gameid));
         }
 
+        Out.println("--> sudoku " + tmp.getGameTitle() + " with difficultly " + difficulty + " generated");
+
         gameTitle = " - " + tmp.getGameTitle();
         model.setBoardValue(tmp.getSudokuField());
         sudoku = tmp;
@@ -195,6 +207,7 @@ public class Controller implements Serializable {
 
     public void resetGameChoose() {
 
+        resetValues();
         gameChosen = false;
     }
 
@@ -277,6 +290,8 @@ public class Controller implements Serializable {
 
         Out.close();
         In.close();
+
+        Out.println("--> sudoku Game #" + gameid + " saved");
 
         return "index";
     }

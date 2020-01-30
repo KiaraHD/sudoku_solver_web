@@ -53,6 +53,16 @@
             <br/>
             <br/>
 
+            <p:outputLabel value="Choose a difficultly: " rendered="#{controller.gameChosen eq 'false'}"/>
+            <p:selectOneRadio id="console" value="#{controller.difficulty}" unselectable="true" rendered="#{controller.gameChosen eq 'false'}">
+                <f:selectItem itemLabel="Easy" itemValue="0" />
+                <f:selectItem itemLabel="Normal" itemValue="1" />
+                <f:selectItem itemLabel="Hard" itemValue="2" />
+            </p:selectOneRadio>
+
+            <br/>
+            <br/>
+
             <p:commandButton id="default" value="Generate sudoku"
                              action="#{controller.setSudokuField()}" style="margin-right:10px;"
                              ajax="false" rendered="#{controller.gameChosen eq 'false'}"/>
@@ -61,7 +71,9 @@
             <p:commandButton id="reset" value="New sudoku" action="#{controller.resetGameChoose()}"
                              style="margin-right:10px;" ajax="false" rendered="#{controller.gameChosen eq 'true'}"/>
             <p:commandButton id="hint" value="Get a hint" action="#{controller.getHint()}"
-                             style="margin-right:10px;" ajax="false" rendered="#{controller.gameChosen eq 'true'}"/>
+                             style="margin-right:10px;" ajax="false" rendered="#{controller.gameChosen eq 'true' and controller.difficulty eq '1' or controller.difficulty eq '0'}"/>
+            <p:commandButton id="solve" value="Solve the sudoku" action="#{controller.solveSudoku()}"
+                             style="margin-right:10px;" ajax="false"  rendered="#{controller.gameChosen eq 'true'and controller.difficulty eq '0'}"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>
