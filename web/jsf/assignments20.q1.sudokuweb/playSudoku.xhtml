@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
     <h:form>
-        <p:panel id="sudoku" header="Play Sudoku  #{controller.gameTitle}" style="margin-bottom:20px">
+        <p:panel id="sudoku" header="Play sudoku  #{controller.gameTitle}" style="margin-bottom:20px">
 
             <br/>
             <ui:repeat value="#{controller.model.boardValue}" var="valueA" varStatus="i">
@@ -41,25 +41,36 @@
 
             <br/>
             <br/>
+            <div class="ui-g">
 
-            <p:outputLabel value="Choose a game: " rendered="#{controller.gameChosen eq 'false'}"/>
-            <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold"
-                             rendered="#{controller.gameChosen eq 'false'}">
-                <f:selectItem itemLabel="Random game" itemValue="random"/>
-                <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
-                               itemValue="#{var.gameID}"/>
-            </p:selectOneMenu>
+                <div class="ui-g-2">
+                    <p:outputLabel value="Choose a game: " rendered="#{controller.gameChosen eq 'false'}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:selectOneMenu id="gameid" value="#{controller.gameid}" style="width:180px" effect="fold"
+                                     rendered="#{controller.gameChosen eq 'false'}">
+                        <f:selectItem itemLabel="Random game" itemValue="random"/>
+                        <f:selectItems value="#{controller.generateList()}" var="var" itemLabel="#{var.gameTitle}"
+                                       itemValue="#{var.gameID}"/>
+                    </p:selectOneMenu>
+                </div>
 
+            </div>
             <br/>
             <br/>
-
-            <p:outputLabel value="Choose a difficultly: " rendered="#{controller.gameChosen eq 'false'}"/>
-            <p:selectOneRadio id="console" value="#{controller.difficulty}" unselectable="true" rendered="#{controller.gameChosen eq 'false'}">
-                <f:selectItem itemLabel="Easy" itemValue="0" />
-                <f:selectItem itemLabel="Normal" itemValue="1" />
-                <f:selectItem itemLabel="Hard" itemValue="2" />
-            </p:selectOneRadio>
-
+            <div class="ui-g">
+                <div class="ui-g-2">
+                    <p:outputLabel value="Choose a difficultly: " rendered="#{controller.gameChosen eq 'false'}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:selectOneRadio id="console" value="#{controller.difficulty}" unselectable="true"
+                                      rendered="#{controller.gameChosen eq 'false'}">
+                        <f:selectItem itemLabel="Easy" itemValue="0"/>
+                        <f:selectItem itemLabel="Normal" itemValue="1"/>
+                        <f:selectItem itemLabel="Hard" itemValue="2"/>
+                    </p:selectOneRadio>
+                </div>
+            </div>
             <br/>
             <br/>
 
@@ -71,9 +82,11 @@
             <p:commandButton id="reset" value="New sudoku" action="#{controller.resetGameChoose()}"
                              style="margin-right:10px;" ajax="false" rendered="#{controller.gameChosen eq 'true'}"/>
             <p:commandButton id="hint" value="Get a hint" action="#{controller.getHint()}"
-                             style="margin-right:10px;" ajax="false" rendered="#{controller.gameChosen eq 'true' and controller.difficulty eq '1' or controller.difficulty eq '0'}"/>
+                             style="margin-right:10px;" ajax="false"
+                             rendered="#{controller.gameChosen eq 'true' and controller.difficulty eq '1' or controller.difficulty eq '0'}"/>
             <p:commandButton id="solve" value="Solve the sudoku" action="#{controller.solveSudoku()}"
-                             style="margin-right:10px;" ajax="false"  rendered="#{controller.gameChosen eq 'true'and controller.difficulty eq '0'}"/>
+                             style="margin-right:10px;" ajax="false"
+                             rendered="#{controller.gameChosen eq 'true'and controller.difficulty eq '0'}"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>
         </p:panel>
     </h:form>
