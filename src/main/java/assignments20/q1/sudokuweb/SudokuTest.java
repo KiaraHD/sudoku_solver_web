@@ -33,7 +33,7 @@ public class SudokuTest {
         unsolved.setSolvedField(unsolvedField);
 
         String[][] unsolvedNotSolvableField = new String[][]{
-                {"5", "3", "6", "", "5", "8", "", "1", "2"},
+                {"5", "3", "6", "6", "5", "8", "", "1", "2"},
                 {"", "7", "2", "1", "9", "5", "3", "4", ""},
                 {"1", "9", "8", "", "5", "", "5", "", "7"},
                 {"8", "", "9", "", "6", "1", "4", "", "3"},
@@ -66,7 +66,7 @@ public class SudokuTest {
     @Test
     public void solveEqualsTrue() {
 
-        unsolved.solve();
+        unsolved.solveSudoku();
 
         assertTrue(unsolved.equals(solved));
     }

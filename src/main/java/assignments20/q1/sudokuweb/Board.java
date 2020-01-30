@@ -1,20 +1,12 @@
 package assignments20.q1.sudokuweb;
 
 public class Board {
-    String boardValue[][];
-    String solvedField[][];
-    boolean solvable;
-    boolean fieldIsEmpty;
-    boolean fieldIsFilled;
-
-
-    public String[][] getSolvedField() {
-        return solvedField;
-    }
-
-    public void setSolvedField(String[][] solvedField) {
-        this.solvedField = solvedField;
-    }
+    private String boardValue[][];
+    private String solvedField[][];
+    private boolean solvable;
+    private boolean fieldIsEmpty;
+    private boolean fieldIsFilled;
+    private boolean solvableHint;
 
     public Board() {
 
@@ -22,8 +14,7 @@ public class Board {
         solvedField = new String[9][9];
         fieldIsEmpty = false;
         fieldIsFilled = true;
-
-
+        solvableHint = true;
 
 
         for (int i = 0; i < boardValue.length; i++) {
@@ -40,6 +31,22 @@ public class Board {
             }
         }
 
+    }
+
+    public String[][] getSolvedField() {
+        return solvedField;
+    }
+
+    public void setSolvedField(String[][] solvedField) {
+        this.solvedField = solvedField;
+    }
+
+    public boolean isSolvableHint() {
+        return solvableHint;
+    }
+
+    public void setSolvableHint(boolean solvableHint) {
+        this.solvableHint = solvableHint;
     }
 
     public boolean isFieldIsFilled() {
@@ -63,7 +70,17 @@ public class Board {
     }
 
     public void setBoardValue(String[][] boardValue) {
-        this.boardValue = boardValue;
+
+        for (int i = 0; i < boardValue.length; i++) {
+            for (int j = 0; j < boardValue[i].length; j++) {
+
+                this.boardValue[i][j] = boardValue[i][j];
+            }
+        }
+    }
+
+    public boolean isSolvable() {
+        return solvable;
     }
 
     public void setSolvable(boolean solvable) {
@@ -179,6 +196,8 @@ public class Board {
                 case "9":
                     count9++;
                     break;
+                case "":
+                    break;
                 default:
                     return false;
             }
@@ -222,6 +241,8 @@ public class Board {
                     break;
                 case "9":
                     count9++;
+                    break;
+                case "":
                     break;
 
                 default:
@@ -267,6 +288,8 @@ public class Board {
                     break;
                 case "9":
                     count9++;
+                    break;
+                case "":
                     break;
                 default:
                     return false;
@@ -330,6 +353,11 @@ public class Board {
 
 
     public boolean solveSudoku() {
+
+
+        if (!boardIsValid()) {
+            return false;
+        }
 
 
         for (int i = 0; i < boardValue.length; i++) {
@@ -463,7 +491,15 @@ public class Board {
             }
         }
 
-        solve();
+
+        solvableHint = boardIsValid();
+
+        if (!solvableHint) {
+            return false;
+        }
+
+
+        solvableHint = solve();
 
         int indexI = 0;
         int indexJ = 0;
@@ -487,6 +523,34 @@ public class Board {
         }
 
         return false;
+    }
+
+    public boolean boardIsValid() {
+
+        for (int row = 0; row < 9; row++) {
+
+            if (!isValidRow(readRow(row))) {
+                return false;
+            }
+        }
+
+        for (int col = 0; col < 9; col++) {
+
+            if (!isValidColumn(readColumn(col))) {
+                return false;
+            }
+        }
+
+        for (int col = 0; col < 9; col++) {
+            for (int row = 0; row < 9; row++) {
+
+                if (!isValidField(readField(row, col))) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
 

@@ -96,11 +96,14 @@ public class Controller implements Serializable {
 
     public void checkSudoku() {
 
+        resetValues();
         isCorrect = model.checkSudoku();
     }
 
+
     public void solveSudoku() {
 
+        resetValues();
         isCorrect = model.solveSudoku();
     }
 
@@ -206,7 +209,18 @@ public class Controller implements Serializable {
     }
 
     public void getHint() {
-
+        resetValues();
         model.hint();
+    }
+
+    public void resetValues() {
+
+        model.setFieldIsEmpty(false);
+        model.setFieldIsFilled(true);
+        model.setSolvableHint(true);
+        model.setSolvable(true);
+        model.setSolvableHint(true);
+        isCorrect = null;
+
     }
 }
