@@ -1,6 +1,7 @@
 package assignments20.q1.sudokuweb;
 
 import libs.inout.In;
+import libs.inout.Out;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -180,7 +181,7 @@ public class Controller implements Serializable {
             tmp.setSudokuField(sudokuFieldTmp);
             tmp.setGameTitle(sudokuArray[82]);
             tmp.setGameID(sudokuArray[81]);
-            sudokuCollection.add(tmp);
+            sudokuCollection.add(Integer.parseInt(tmp.getGameID()), tmp);
 
         }
 
@@ -222,5 +223,61 @@ public class Controller implements Serializable {
         model.setSolvableHint(true);
         isCorrect = null;
 
+    }
+
+    public String saveNewSudokuToFile() {
+
+        saveSudokuFromFile();
+
+        In.open(FILE_NAME);
+        Out.open(FILE_NAME);
+
+        String sudokuArray[] = new String[81];
+
+        String sudoku = "";
+
+        for (int x = 0; x < sudokuCollection.size(); x++) {
+
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+
+                    sudoku = sudoku + sudokuCollection.get(x).getSudokuField()[i][j] + ",";
+
+
+                }
+            }
+
+            sudoku = sudoku + sudokuCollection.get(x).getGameID() + "," + sudokuCollection.get(x).getGameTitle();
+
+            Out.println(sudoku);
+            sudoku = "";
+        }
+
+
+        for (int i = 0; i < model.getBoardValue().length; i++) {
+            for (int j = 0; j < model.getBoardValue()[i].length; j++) {
+
+                sudoku = sudoku + model.getBoardValue()[i][j] + ",";
+            }
+        }
+
+
+        String gameid = (Integer.parseInt(sudokuCollection.get(sudokuCollection.size() - 1).getGameID()) + 1) + "";
+
+        if (gameid.length() == 1) {
+            gameid = "00" + gameid;
+        } else if (gameid.length() == 2) {
+            gameid = "0" + gameid;
+        }
+
+        sudoku = sudoku + gameid;
+        sudoku = sudoku + ",Game #" + gameid;
+
+        Out.println(sudoku);
+
+        Out.close();
+        In.close();
+
+        return "index";
     }
 }

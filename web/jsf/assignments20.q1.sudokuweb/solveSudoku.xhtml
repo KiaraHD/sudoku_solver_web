@@ -30,14 +30,16 @@
             <br/>
             <p:outputLabel value="The sudoku is empty, please insert some numbers."
                            rendered="#{controller.model.fieldIsEmpty eq 'true'}"/>
-            <p:outputLabel value="The sudoku is solvable." rendered="#{controller.correct eq 'true'}"/>
-            <p:outputLabel value="The sudoku is not solvable."
-                           rendered="#{controller.correct eq 'false'  and controller.model.fieldIsEmpty eq 'false'}"/>
-
+            <p:outputLabel value="The sudoku is not complete, please enter the remeaning numbers."
+                           rendered="#{controller.model.fieldIsFilled eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>
+            <p:outputLabel value="The sudoku is solved correct." rendered="#{controller.correct eq 'true'}"/>
+            <p:outputLabel value="The sudoku is wrong."
+                           rendered="#{controller.correct eq 'false' and controller.model.fieldIsEmpty eq 'false' and controller.model.fieldIsFilled eq 'true'}"/>
             <br/>
             <br/>
 
-
+            <p:commandButton id="check" value="Check sudoku" action="#{controller.checkSudoku()}"
+                             style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="solve" value="Solve the sudoku" action="#{controller.solveSudoku()}"
                              style="margin-right:10px;" ajax="false"/>
             <p:commandButton id="back" value="Back to index" action="index" style="margin-right:10px;" ajax="false"/>

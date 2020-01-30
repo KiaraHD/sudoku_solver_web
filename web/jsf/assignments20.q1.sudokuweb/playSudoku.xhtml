@@ -31,7 +31,7 @@
             <br/>
             <p:outputLabel value="The sudoku is empty, please insert some numbers."
                            rendered="#{controller.model.fieldIsEmpty eq 'true' }"/>
-            <p:outputLabel value="The Sudoku isnt solvable anymore, please fix your mistake"
+            <p:outputLabel value="The Sudoku isn't solveable anymore, please fix your mistake."
                            rendered="#{controller.model.solvableHint eq 'false' }"/>
             <p:outputLabel value="The sudoku is not complete, please enter the remeaning numbers."
                            rendered="#{controller.model.fieldIsFilled eq 'false' and controller.model.fieldIsEmpty eq 'false'}"/>

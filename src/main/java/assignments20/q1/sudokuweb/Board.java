@@ -16,7 +16,6 @@ public class Board {
         fieldIsFilled = true;
         solvableHint = true;
 
-
         for (int i = 0; i < boardValue.length; i++) {
             for (int j = 0; j < boardValue[i].length; j++) {
 
@@ -32,6 +31,7 @@ public class Board {
         }
 
     }
+
 
     public String[][] getSolvedField() {
         return solvedField;
@@ -77,10 +77,6 @@ public class Board {
                 this.boardValue[i][j] = boardValue[i][j];
             }
         }
-    }
-
-    public boolean isSolvable() {
-        return solvable;
     }
 
     public void setSolvable(boolean solvable) {
@@ -553,6 +549,3 @@ public class Board {
         return true;
     }
 }
-
-
-
